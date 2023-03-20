@@ -13,7 +13,7 @@ double randGenDouble(double min, double max)
     return min + (rand() / div);
 }
 
-binarySearch(double * array, )
+binarySearch(double * array, );
 
 
 int main()
