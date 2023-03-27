@@ -42,7 +42,8 @@ int randInt(int high)
     return (rand() % (high+1));
 }
 
-void iterBinSearchArrayTest(int arrlen, double limit){
+void iterBinSearchArrayTest(int arrlen, double limit)
+{
     printf("\nIterative Binary Search Test in a randomly generated floating point array with %d numbers.", arrlen);
     srand(time(NULL));
     double workArray2[arrlen];
@@ -60,7 +61,8 @@ void iterBinSearchArrayTest(int arrlen, double limit){
     printf("\nTime spent with the iterative method: %lf", timeSpentIter);
 }
 
-void recBinSearchArrayTest(int arrlen, double limit){\
+void recBinSearchArrayTest(int arrlen, double limit)
+{
     printf("\nRecursive Binary Search Test in a randomly generated floating point array with %d numbers.", arrlen);
     srand(time(NULL));
     double workArray2[arrlen];
@@ -112,6 +114,4 @@ int main()
     recBinSearchArrayTest(100, 100000000);
     srand(time(NULL));
     recBinSearchArrayTest(1000, 100000000);
-
-    return 0;
 }
