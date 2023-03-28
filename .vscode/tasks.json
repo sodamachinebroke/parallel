@@ -2,23 +2,16 @@
     "tasks": [
         {
             "type": "cppbuild",
-<<<<<<< HEAD
+
             "label": "C/C++: gcc-12 build active file",
             "command": "/usr/bin/gcc-12",
-=======
-            "label": "C/C++: gcc.exe build active file",
-            "command": "C:\\MinGW\\bin\\gcc.exe",
->>>>>>> 9686ecc4b2e2ebda8c2897e48f5264ae7c766a8f
+
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
-<<<<<<< HEAD
                 "${fileDirname}/${fileBasenameNoExtension}"
-=======
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
->>>>>>> 9686ecc4b2e2ebda8c2897e48f5264ae7c766a8f
             ],
             "options": {
                 "cwd": "${fileDirname}"
