@@ -1,19 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <unistd.h>
+#include <sys/types.h>
 #include <pthread.h>
-
-/*int g = 0;
-
-void *tempThread(void *vargp)
-{
-    int *myid = (int *)vargp;
-    static int s = 0;
-    ++s;
-    ++g;
-    printf("Thread ID: %d, Static: %d, Global: %d\n", *myid, ++s, ++g);
-}*/
+#include <stdbool.h>
 
 bool isPrime(int num)
 {
@@ -40,32 +29,30 @@ void *countPrime(int from, int to)
         if (isPrime(i))
             n++;
     }
-    printf("Number of primes in interval: %d", n);
+
+    printf("Number of primes from %d to %d: %d\n", from, to, n);
 }
 
-/*void *countPrimesInInterval()
+void *primeCounterWrapper(void *_)
 {
-    int i = 0, j = 99;
-
-    while (i <= 900 && j < 1000)
+    for (int i = 0; i < 999; i += 100)
     {
-        printf("Prime numbers from %d to %d: %d\n", i, j, countPrime(i, j));
-        i += 100;
-        j += 100;
+        countPrime(i, i + 99);
     }
-}*/
+}
 
-int main(int argc, char const *argv[])
+const int N_THREADS = 10;
+
+int main(int argc, char *argv[])
 {
-
-    pthread_t tid;
-    int j=0;
-    for (int i = 0; i < 10; i++)
+    pthread_t threads[N_THREADS];
+    int i;
+    for (i = 0; i < N_THREADS; ++i)
     {
-        pthread_create(&tid, NULL, countPrime(j, j+99), (void*)&tid);
-        j+=100;
+        pthread_create(&threads[i], NULL, primeCounterWrapper, NULL);
     }
-    
+
     pthread_exit(NULL);
+
     return 0;
 }
