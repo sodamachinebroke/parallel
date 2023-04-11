@@ -1,0 +1,1 @@
+for(start = 0, end = chunk_size; start < array_size; start = end, end = start+chunk size)
