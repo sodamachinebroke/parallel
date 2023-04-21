@@ -1,0 +1,2 @@
+gcc -Iinclude/ src/commons.c src/omp.c src/rec.c src/seq.c src/prod.c -o product -o product.exe
+./product
