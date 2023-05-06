@@ -55,7 +55,7 @@ bool greyScale(const char *filename)
     // Read pixel pixelData
     if (fread(pixelData, sizeof(unsigned char), width * height * 3, streamIn) != width * height * 3)
     {
-        fprintf(stderr, "Error: Invalid pixel pixelData\n");
+        fprintf(stderr, "Error: Invalid pixel data\n");
         return false;
     }
 
