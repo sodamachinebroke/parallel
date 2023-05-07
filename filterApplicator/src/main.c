@@ -58,6 +58,7 @@ void bigSampleModifier()
     }
     printf("Now with OMP parallelization!\n");
     printf("Turning it greyscale from big.bmp to biggscomp.bmp\n");
+    
     { //OMP majesticity
     if (greyScaleOmp("big.bmp"))
         printf("Great success!\n");
