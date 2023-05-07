@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 #include "greyscale.h"
 #include "commons.h"
@@ -12,7 +13,7 @@ bool greyScale(const char *filename)
     char fullOutpath[100];
 
     sprintf(fullInpath, "%s%s", path, filename);
-    sprintf(fullOutpath, "%s%s", path, addSuffix(filename, "out"));
+    sprintf(fullOutpath, "%s%s", path, addSuffix(filename, "gsc"));
 
     FILE *streamIn = fopen(fullInpath, "rb");
     if (streamIn == NULL)
@@ -42,8 +43,7 @@ bool greyScale(const char *filename)
     }
 
     // Calculate row padding in bytes
-    int padding = (4 - (width * 3) % 4) % 4;
-
+    int padding = (4 - ((width * 3) % 4)) % 4;
     // Allocate memory for pixel pixelData
     unsigned char *pixelData = (unsigned char *)malloc(sizeof(unsigned char) * width * height * 3);
     if (pixelData == NULL)
@@ -93,6 +93,5 @@ bool greyScale(const char *filename)
     free(pixelData);
 
     printf("Grayscale conversion complete.\n");
-    sleep(2);
     return true;
 }
