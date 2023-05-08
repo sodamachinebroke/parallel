@@ -11,7 +11,7 @@ The program should have three versions, including one based on POSIX thread mani
 ## Experiences so far
 So far it works in sequential mode and using OMP parallelization.
 I have two images in the filterApplicator/images folder. One of them being a very large file of ~50MB and the other is slightly smaller at ~4MB.
-The program can apply two filters: a greyscaler and a negator??? negativizer?? grammar. Anyway it does that quite effectively.
+The program can apply two filters: a greyscaler and a negator??? negativizer?? grammar. Anyway it does that quite effectively.  return
 However well it runs, it loses exactly 84bytes of data, regardless of file size which is curious.
 
 ## Next goals
