@@ -8,19 +8,26 @@
 
 bool turnNeg(const char *filename)
 {
+
+    /*These lines are for formatting. I only need to ask for a filename in the argument and
+    then it looks for said filename in the images folder, then sucks it out.*/
+    // begin
     const char *path = "images/";
     char fullInpath[100];
     char fullOutpath[100];
 
     sprintf(fullInpath, "%s%s", path, filename);
     sprintf(fullOutpath, "%s%s", path, addSuffix(filename, "neg"));
+    // end
 
+    // File reading begin
     FILE *streamIn = fopen(fullInpath, "rb");
     if (streamIn == NULL)
     {
         fprintf(stderr, "Error: Failed to open input file %s\n", filename);
         return false;
     }
+    // end
 
     // Read header pixelData
     unsigned char header[54];
@@ -35,7 +42,7 @@ bool turnNeg(const char *filename)
     int height = *(int *)&header[22];
     int bit_depth = *(int *)&header[28];
 
-    // Check if image is 24bpp
+    // Check if image is 24bit per pixel
     if (bit_depth != 24)
     {
         fprintf(stderr, "Error: Invalid bit depth\n");
@@ -62,16 +69,16 @@ bool turnNeg(const char *filename)
 
     fclose(streamIn);
 
-    // Convert to grayscale
+    // Convert to negative
     for (int y = 0; y < height; y++)
     {
         for (int x = 0; x < width; x++)
         {
-            int i = (y * width + x) * 3;
-            unsigned char r = pixelData[i];
+            int i = (y * width + x) * 3;    // current pixel
+            unsigned char r = pixelData[i]; // assigning every pixel's color to a variable
             unsigned char g = pixelData[i + 1];
             unsigned char b = pixelData[i + 2];
-            pixelData[i] = 255 - r;
+            pixelData[i] = 255 - r; // these couple lines subtract our pixels' values from 255 to achieve a negative effect
             pixelData[i + 1] = 255 - g;
             pixelData[i + 2] = 255 - b;
         }
@@ -125,7 +132,7 @@ bool greyScale(const char *filename)
     int height = *(int *)&header[22];
     int bit_depth = *(int *)&header[28];
 
-    // Check if image is 24bpp
+    // Check if image is 24bits per pixel
     if (bit_depth != 24)
     {
         fprintf(stderr, "Error: Invalid bit depth\n");
