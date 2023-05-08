@@ -19,5 +19,7 @@ However well it runs, it loses exactly 84bytes of data, regardless of file size 
 - Parallelization utilizing POSIX threads.
 - Variable thread count.
 - More images
-- Performance tests  
+- Performance tests
+
+
 I would like to find a very very large BMP image. Think GigaBytes and then see what the program does, because both of my machines run on SSDs. Although i could use an old computer at home, from around 2002. That should have some trouble converting said images. Great idea, thank me!
