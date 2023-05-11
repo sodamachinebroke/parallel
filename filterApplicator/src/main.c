@@ -76,6 +76,7 @@ int main(int argc, char const *argv[])
 {
     henryCavillmodifier();
     bigSampleModifier();
+    copyImage("big.bmp");
     printf("\nPress any key to exit!\n");
     getchar();
     return 0;

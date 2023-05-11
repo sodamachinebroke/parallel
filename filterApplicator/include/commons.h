@@ -3,4 +3,4 @@
 #endif
 
 char *addSuffix(const char *filename, const char *suffix);
-/*supposedly this just adds a suffix to my filename*/
+/*this just adds a suffix to my filename*/
