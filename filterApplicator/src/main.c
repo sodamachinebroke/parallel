@@ -2,15 +2,17 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <mpi.h>
 
 #include "copy.h"
 #include "sequential.h"
 #include "omp.h"
 #include "pos.h"
+#include "convmpi.h"
 
 void henryCavillmodifier()
 {
-    printf("Modifying Henry Cavill's picture.");
+    printf("Modifying Henry Cavill's picture.\n");
     printf("First off, sequentially.\n");
 
     { // Sequential stuff
@@ -58,7 +60,7 @@ void henryCavillmodifier()
 }
 void bigSampleModifier()
 {
-    printf("Modifying a random large BMP image i found.");
+    printf("Modifying a random large BMP image I found.\n");
     printf("First off, sequentially.\n");
 
     { // Sequential stuff
@@ -106,9 +108,34 @@ void bigSampleModifier()
 
 int main(int argc, char const *argv[])
 {
-    henryCavillmodifier();
-    bigSampleModifier();
 
+    MPI_Init(&argc, (char ***)&argv);
+
+    bigSampleModifier();
+    printf("Turning it greyscale from big.bmp to biggscMPI.bmp\n"); // This has to be here, because i'm too lazy to figure it out
+    if (greyScaleMPI("big.bmp", argc, (char **)argv))
+        printf("Great success!\n");
+    else
+        printf("Error, did not work.\n");
+    printf("Turning it into a nightmare from big.bmp to bignegMPI.bmp\n");
+    if (turnNegMPI("big.bmp", argc, (char **)argv))
+        printf("Great success!\n");
+    else
+        printf("Error, did not work.\n");
+
+
+    henryCavillmodifier();
+    printf("Turning it greyscale from cavill.bmp to cavillgscMPI.bmp\n"); // This has to be here, because i'm too lazy to figure it out
+    if (greyScaleMPI("cavill.bmp", argc, (char **)argv))
+        printf("Great success!\n");
+    else
+        printf("Error, did not work.\n");
+    printf("Turning it into a nightmare from cavill.bmp to cavillnegMPI.bmp\n");
+    if (turnNegMPI("cavill.bmp", argc, (char **)argv))
+        printf("Great success!\n");
+    else
+        printf("Error, did not work.\n");
+    MPI_Finalize();
     printf("\nPress any key to exit!\n");
     getchar();
     return 0;
