@@ -14,12 +14,14 @@ I have two images in the filterApplicator/images folder. One of them being a ver
 The program can apply two filters: a greyscaler and a negator??? negativizer?? grammar. Anyway it does that quite effectively.  
 However well it runs, it loses exactly 84bytes of data, regardless of file size which is curious.
 
+I have made it work with both POSIX threads and OpenMPI. It was a struggle, but i won.  
+Also found a large image but it's 2.5GB in size and i don't think GitHub would like that. However, we are here to experiment, so let's try.
+
 ## Next goals
 
-- Parallelization utilizing POSIX threads.
-- Variable thread count.
 - More images
 - Performance tests
 
 
-I would like to find a very very large BMP image. Think GigaBytes and then see what the program does, because both of my machines run on SSDs. Although i could use an old computer at home, from around 2002. That should have some trouble converting said images. Great idea, thank me!
+I would like to find a very very large BMP image. Think GigaBytes and then see what the program does, because both of my machines run on SSDs. Although i could use an old computer at home, from around 2002. That should have some trouble converting said images. Great idea, thank me!  
+I found said image.
