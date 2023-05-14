@@ -7,8 +7,6 @@
 #include "pos.h"
 #include "commons.h"
 
-
-
 void *turnNegConv(void *threadArg)
 {
     threadData *data = (threadData *)threadArg;
@@ -97,7 +95,8 @@ bool turnNegPos(const char *filename)
     for (int i = 0; i < threadNum; i++)
     {
         int endRow = startRow + rowsperThread;
-        if(i == threadNum - 1){
+        if (i == threadNum - 1)
+        {
             endRow += remainingRows;
         }
         tData[i].pixelData = pixelData;
@@ -106,8 +105,9 @@ bool turnNegPos(const char *filename)
         tData[i].startRow = startRow;
         tData[i].endRow = endRow;
         int rc = pthread_create(&threads[i], NULL, turnNegConv, (void *)&tData[i]);
-        if(rc){
-            fprintf(stderr,"Error: failed to create thread %d", i);
+        if (rc)
+        {
+            fprintf(stderr, "Error: failed to create thread %d", i);
             free(pixelData);
             return false;
         }
@@ -117,13 +117,13 @@ bool turnNegPos(const char *filename)
     for (int i = 0; i < threadNum; i++)
     {
         int rc = pthread_join(threads[i], NULL);
-        if(rc){
-            fprintf(stderr,"Error: failed to join thread: %d", i);
+        if (rc)
+        {
+            fprintf(stderr, "Error: failed to join thread: %d", i);
             free(pixelData);
             return false;
         }
     }
-    
 
     // Write output file
     FILE *streamOut = fopen(fullOutpath, "wb");
@@ -140,11 +140,10 @@ bool turnNegPos(const char *filename)
     fclose(streamOut);
     free(pixelData);
 
-    printf("Negative image conversion complete.\n");
     return true;
 }
 
-    void *greyScaleConv(void *threadArg)
+void *greyScaleConv(void *threadArg)
 {
     threadData *data = (threadData *)threadArg;
 
@@ -231,7 +230,8 @@ bool greyScalePos(const char *filename)
     for (int i = 0; i < threadNum; i++)
     {
         int endRow = startRow + rowsperThread;
-        if(i == threadNum - 1){
+        if (i == threadNum - 1)
+        {
             endRow += remainingRows;
         }
         tData[i].pixelData = pixelData;
@@ -240,8 +240,9 @@ bool greyScalePos(const char *filename)
         tData[i].startRow = startRow;
         tData[i].endRow = endRow;
         int rc = pthread_create(&threads[i], NULL, greyScaleConv, (void *)&tData[i]);
-        if(rc){
-            fprintf(stderr,"Error: failed to create thread %d", i);
+        if (rc)
+        {
+            fprintf(stderr, "Error: failed to create thread %d", i);
             free(pixelData);
             return false;
         }
@@ -251,8 +252,9 @@ bool greyScalePos(const char *filename)
     for (int i = 0; i < threadNum; i++)
     {
         int rc = pthread_join(threads[i], NULL);
-        if(rc){
-            fprintf(stderr,"Error: failed to join thread: %d", i);
+        if (rc)
+        {
+            fprintf(stderr, "Error: failed to join thread: %d", i);
             free(pixelData);
             return false;
         }
@@ -289,6 +291,5 @@ bool greyScalePos(const char *filename)
     fclose(streamOut);
     free(pixelData);
 
-    printf("Grayscale conversion complete.\n");
     return true;
 }

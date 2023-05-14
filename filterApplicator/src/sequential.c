@@ -99,7 +99,6 @@ bool turnNeg(const char *filename)
     fclose(streamOut);
     free(pixelData);
 
-    printf("Negative image conversion complete.\n");
     return true;
 }
 
@@ -189,6 +188,5 @@ bool greyScale(const char *filename)
     fclose(streamOut);
     free(pixelData);
 
-    printf("Grayscale conversion complete.\n");
     return true;
 }

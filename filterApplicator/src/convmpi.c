@@ -116,7 +116,6 @@ bool turnNegMPI(const char *filename, int argc, char **argv)
     fclose(streamOut);
     free(pixelData);
 
-    printf("Negative image conversion complete.\n");
     return true;
 }
 
@@ -221,6 +220,5 @@ bool greyScaleMPI(const char *filename, int argc, char **argv)
     fclose(streamOut);
     free(pixelData);
 
-    printf("Grayscale conversion complete.\n");
     return true;
 }

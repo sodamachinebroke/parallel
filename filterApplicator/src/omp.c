@@ -5,7 +5,6 @@
 
 #include "commons.h"
 
-
 bool turnNegOmp(const char *filename)
 {
     const char *path = "images/";
@@ -61,14 +60,14 @@ bool turnNegOmp(const char *filename)
     }
 
     fclose(streamIn);
-    
+
     // Convert to grayscale
     for (int y = 0; y < height; y++)
     {
-        #pragma omp parallel for
+#pragma omp parallel for
         for (int x = 0; x < width; x++)
         {
-            #pragma omp atomic
+#pragma omp atomic
             int i = (y * width + x) * 3;
             unsigned char r = pixelData[i];
             unsigned char g = pixelData[i + 1];
@@ -94,7 +93,6 @@ bool turnNegOmp(const char *filename)
     fclose(streamOut);
     free(pixelData);
 
-    printf("Negative image conversion complete.\n");
     return true;
 }
 
@@ -156,10 +154,10 @@ bool greyScaleOmp(const char *filename)
     // Convert to grayscale
     for (int y = 0; y < height; y++)
     {
-        #pragma omp parallel for
+#pragma omp parallel for
         for (int x = 0; x < width; x++)
         {
-            #pragma omp atomic
+#pragma omp atomic
             int i = (y * width + x) * 3;
             unsigned char r = pixelData[i];
             unsigned char g = pixelData[i + 1];
@@ -186,6 +184,5 @@ bool greyScaleOmp(const char *filename)
     fclose(streamOut);
     free(pixelData);
 
-    printf("Grayscale conversion complete.\n");
     return true;
 }
