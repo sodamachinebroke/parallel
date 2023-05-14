@@ -109,39 +109,94 @@ void bigSampleModifier()
 
 int main(int argc, char const *argv[])
 {
-
-    clock_t startBig = clock();
     MPI_Init(&argc, (char ***)&argv);
 
-    bigSampleModifier();
-    printf("\nUsing OpenMPI!\n");
-    printf("Turning it greyscale from big.bmp to biggscMPI.bmp. "); // This has to be here, because i'm too lazy to figure it out
-    if (greyScaleMPI("big.bmp", argc, (char **)argv))
-        printf("Great success!\n");
-    else
-        printf("Error, did not work.\n");
-    printf("Turning it into a nightmare from big.bmp to bignegMPI.bmp. ");
-    if (turnNegMPI("big.bmp", argc, (char **)argv))
-        printf("Great success!\n");
-    else
-        printf("Error, did not work.\n");
-    clock_t endBig = clock();
+    /*printf("Modifying a random large BMP image I found.\n");
+    printf("\nFirst off, sequentially.\n");
 
-    clock_t startCavill = clock();
-    henryCavillmodifier();
-    printf("\nUsing OpenMPI!\n");
-    printf("Turning it greyscale from cavill.bmp to cavillgscMPI.bmp. "); // This has to be here, because i'm too lazy to figure it out
-    if (greyScaleMPI("cavill.bmp", argc, (char **)argv))
-        printf("Great success!\n");
-    else
-        printf("Error, did not work.\n");
-    printf("Turning it into a nightmare from cavill.bmp to cavillnegMPI.bmp. ");
-    if (turnNegMPI("cavill.bmp", argc, (char **)argv))
-        printf("Great success!\n");
-    else
-        printf("Error, did not work.\n");
-    clock_t endCavill = clock();
-    MPI_Finalize();
+    { // Sequential stuff
+        printf("Turning it greyscale from leaves.bmp to leavesgsc.bmp. ");
+        if (greyScale("leaves.bmp"))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+        printf("Turningh it into a nightmare from leaves.bmp to leavesneg.bmp. ");
+        if (turnNeg("leaves.bmp"))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+    }
+    printf("\nNow with OMP parallelization!\n");
+
+    { // OMP majesticity
+        printf("Turning it greyscale from leaves.bmp to leavesgscomp.bmp. ");
+        if (greyScaleOmp("leaves.bmp"))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+        printf("Turning it into a nightmare from leaves.bmp to leavesnegomp.bmp. ");
+        if (turnNegOmp("leaves.bmp"))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+    }
+
+    printf("\nPOSIX threads!\n");
+
+    { // POSIX threads
+        printf("Turning it greyscale from leaves.bmp to leavesgscPOS.bmp. ");
+        if (greyScalePos("leaves.bmp"))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+        printf("Turning it into a nightmare from leaves.bmp to leavesnegPOS.bmp. ");
+        if (turnNegPos("leaves.bmp"))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+
+        printf("\nUsing OpenMPI!\n");
+        printf("Turning it greyscale from leaves.bmp to leavesgscMPI.bmp. "); // This has to be here, because i'm too lazy to figure it out
+        if (greyScaleMPI("leaves.bmp", argc, (char **)argv))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+        printf("Turning it into a nightmare from leaves.bmp to leavesnegMPI.bmp. ");
+        if (turnNegMPI("leaves.bmp", argc, (char **)argv))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+    }*/
+
+    clock_t startBig = clock();
+        bigSampleModifier();
+        printf("\nUsing OpenMPI!\n");
+        printf("Turning it greyscale from big.bmp to biggscMPI.bmp. "); // This has to be here, because i'm too lazy to figure it out
+        if (greyScaleMPI("big.bmp", argc, (char **)argv))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+        printf("Turning it into a nightmare from big.bmp to bignegMPI.bmp. ");
+        if (turnNegMPI("big.bmp", argc, (char **)argv))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+        clock_t endBig = clock();
+
+        clock_t startCavill = clock();
+        henryCavillmodifier();
+        printf("\nUsing OpenMPI!\n");
+        printf("Turning it greyscale from cavill.bmp to cavillgscMPI.bmp. "); // This has to be here, because i'm too lazy to figure it out
+        if (greyScaleMPI("cavill.bmp", argc, (char **)argv))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+        printf("Turning it into a nightmare from cavill.bmp to cavillnegMPI.bmp. ");
+        if (turnNegMPI("cavill.bmp", argc, (char **)argv))
+            printf("Great success!\n");
+        else
+            printf("Error, did not work.\n");
+        clock_t endCavill = clock();
 
     double timeSpentBig = ((double)(endBig - startBig)) / CLOCKS_PER_SEC;
     double timeSpentCavill = ((double)(endCavill - startCavill)) / CLOCKS_PER_SEC;
@@ -149,5 +204,6 @@ int main(int argc, char const *argv[])
     printf("\nTime spent on applying the filters to Henry Cavill: %lf vs the time spent on the big sample picture: %lf\n", timeSpentCavill, timeSpentBig);
     printf("\nPress any key to exit!\n");
     getchar();
+    MPI_Finalize();
     return 0;
 }
