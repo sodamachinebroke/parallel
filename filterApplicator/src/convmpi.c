@@ -78,17 +78,16 @@ bool turnNegMPI(const char *filename, int argc, char **argv)
     int startRow = rank * rowsPerProcess;
     int endRow = startRow + rowsPerProcess;
 
-    unsigned char *localPixelData = (unsigned char*) malloc(sizeof(unsigned char) * width * rowsPerProcess * 3);
+    unsigned char *localPixelData = (unsigned char *)malloc(sizeof(unsigned char) * width * rowsPerProcess * 3);
 
     MPI_Scatter(pixelData, width * rowsPerProcess * 3, MPI_UNSIGNED_CHAR, localPixelData, width * rowsPerProcess * 3, MPI_UNSIGNED_CHAR, 0, MPI_COMM_WORLD);
-
 
     // Convert to negative
     for (int y = 0; y < rowsPerProcess; y++)
     {
         for (int x = 0; x < width; x++)
         {
-            int i = (y * width + x) * 3;    // current pixel
+            int i = (y * width + x) * 3;         // current pixel
             unsigned char r = localPixelData[i]; // assigning every pixel's color to a variable
             unsigned char g = localPixelData[i + 1];
             unsigned char b = localPixelData[i + 2];
@@ -182,7 +181,7 @@ bool greyScaleMPI(const char *filename, int argc, char **argv)
     int startRow = rank * rowsPerProcess;
     int endRow = startRow + rowsPerProcess;
 
-    unsigned char *localPixelData = (unsigned char*) malloc(sizeof(unsigned char) * width * rowsPerProcess * 3);
+    unsigned char *localPixelData = (unsigned char *)malloc(sizeof(unsigned char) * width * rowsPerProcess * 3);
 
     MPI_Scatter(pixelData, width * rowsPerProcess * 3, MPI_UNSIGNED_CHAR, localPixelData, width * rowsPerProcess * 3, MPI_UNSIGNED_CHAR, 0, MPI_COMM_WORLD);
 
